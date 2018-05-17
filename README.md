@@ -86,7 +86,7 @@ http://www.zhijieketang.com/group/8
 https://yuedu.baidu.com/ebook/5823871e59fafab069dc5022aaea998fcc2240fc
 
 ## 联系我们
-作者微博：@tony_关东升
-邮箱：eorient@sina.com
-智捷课堂微信公共号：zhijieketang
-Python读者服务QQ群：628808216
+### 作者微博：@tony_关东升
+### 邮箱：eorient@sina.com
+### 智捷课堂微信公共号：zhijieketang
+### Python读者服务QQ群：628808216
