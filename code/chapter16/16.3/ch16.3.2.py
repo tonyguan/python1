@@ -1,12 +1,4 @@
 # coding=utf-8
-# Created by 智捷关东升
-# 本书网站：www.zhijieketang.com/group/8
-# 智捷课堂在线课堂：www.zhijieketang.com
-# 智捷课堂微信公共号：zhijieketang
-# 邮箱：eorient@sina.com
-# 读者服务QQ群：628808216
-# 配套视频课程：http://www.zhijieketang.com/classroom/10/courses
-
 # 代码文件：chapter16/ch16.3.2.py
 
 import json
@@ -29,7 +21,7 @@ print(type(json_obj))  # <class 'str'>
 
 # 编码过程
 json_obj = json.dumps(py_dict, indent=4)
-# 漂亮的格式化字符串后输出
+# 输出格式化后的字符串
 print(json_obj)
 
 # 写入JSON数据到data1.json文件

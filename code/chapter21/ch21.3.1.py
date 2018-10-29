@@ -1,48 +1,56 @@
 # coding=utf-8
-# Created by 智捷关东升
-# 本书网站：www.zhijieketang.com/group/8
-# 智捷课堂在线课堂：www.zhijieketang.com
-# 智捷课堂微信公共号：zhijieketang
-# 邮箱：eorient@sina.com
-# 读者服务QQ群：628808216
-# 配套视频课程：http://www.zhijieketang.com/classroom/10/courses
+# 代码文件：chapter21/ch21.3.1.py
 
-# 代码文件：chapter21/20.3.1/ch21.3.1.py
+import urllib.request
 
-from cocos.menu import *
-from cocos.scene import *
-from cocos.layer import *
+import os
+import re
+
+url = 'http://p.weather.com.cn/'
 
 
-# 自定义主菜单类
-class MainMenu(Menu):
+def findallimageurl(htmlstr):
+    """从HTML代码中查找匹配的字符串"""
 
-    def __init__(self):
-        super(MainMenu, self).__init__()
-
-        self.font_item['font_size'] = 32
-        self.font_item_selected['font_size'] = 40
-
-        item1 = MenuItem('开始', self.on_item1_callback)
-        item2 = ToggleMenuItem('音效', self.on_item2_callback, False)
-        
-        self.create_menu([item1, item2],
-                         selected_effect=shake(),
-                         unselected_effect=shake_back())
-
-    def on_item1_callback(self):
-        print('调用MenuItem')
-
-    def on_item2_callback(self, value):
-        print('调用ToggleMenuItem', value)
+    # 定义正则表达式
+    pattern = r'http://\S+(?:\.png|\.jpg)'
+    return re.findall(pattern, htmlstr)
 
 
-if __name__ == "__main__":
-    # 初始化导演
-    director.init(caption="菜单示例")
-    # 创建主菜单
-    main_menu = MainMenu()
-    # 创建主场景
-    main_scene = Scene(main_menu)
-    # 开始启动场景
-    director.run(main_scene)
+def getfilename(urlstr):
+    """根据图片连接地址截取图片名"""
+
+    pos = urlstr.rfind('/')
+    return urlstr[pos + 1:]
+
+
+# 分析获得的url列表
+url_list = []
+req = urllib.request.Request(url)
+with urllib.request.urlopen(req) as response:
+    data = response.read()
+    htmlstr = data.decode()
+
+    url_list = findallimageurl(htmlstr)
+
+for imagesrc in url_list:
+    # 根据图片地址下载
+    req = urllib.request.Request(imagesrc)
+    with urllib.request.urlopen(req) as response:
+        data = response.read()
+        # 过滤掉用小于100kb字节的图片
+        if len(data) < 1024 * 100:
+            continue
+
+        # 创建download文件夹
+        if not os.path.exists('download'):
+            os.mkdir('download')
+
+        # 获得图片文件名
+        filename = getfilename(imagesrc)
+        filename = 'download/' + filename
+        # 保存图片到本地
+        with open(filename, 'wb') as f:
+            f.write(data)
+
+    print('下载图片', filename)
