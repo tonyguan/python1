@@ -19,7 +19,7 @@ print('账户金额：{0}'.format(account.amount))
 print('利率：{0}'.format(Account.interest_rate))
 
 print('Account利率：{0}'.format(Account.interest_rate))
-print('ac1利率：{0}'.format(account.interest_rate1))
+print('ac1利率：{0}'.format(account.interest_rate))
 
 print('ac1实例所有变量：{0}'.format(account.__dict__))
 account.interest_rate = 0.01
